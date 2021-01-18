@@ -1,6 +1,7 @@
 # About
 
-A simple game based on Dani's [Making a Game in ONE HOUR](https://www.youtube.com/watch?v=EGBvvlgbJVM) video using the [Ruby2d](http://www.ruby2d.com/) gem. This is also my first game.
+A simple game based on Dani's [Making a Game in ONE HOUR](https://www.youtube.com/watch?v=EGBvvlgbJVM) video using the [Ruby2d](http://www.ruby2d.com/) gem. 
+This is also my first game.
 
 ![repo_cover](https://i.imgur.com/tsGuU8B.png)
 
