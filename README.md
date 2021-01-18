@@ -50,6 +50,6 @@ ruby dodge.rb
 
 - Ruby2D Team for the [Ruby2D gem](https://github.com/ruby2d/ruby2d);
 <!-- - [Carlos Vagner](https://github.com/glitchysnitchy) for the game music; -->
-- Jeffrey Thompson for the [Rectangle-Circle Collision Algorithm](http://www.jeffreythompson.org/collision-detection/circle-rect.php)
+- Jeffrey Thompson for the [Rectangle-Circle Collision Algorithm](http://www.jeffreythompson.org/collision-detection/circle-rect.php);
 - u/astrellon3 for the [background space image](https://www.reddit.com/r/PixelArt/comments/f1wg26/space_background);
 - User ID 9664c for the [Jetpack model](https://pixelartmaker.com/art/742278a96bb85eb).

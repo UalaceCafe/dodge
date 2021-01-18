@@ -10,8 +10,6 @@ $started = false
 $restart = false
 $gravity = 490
 
-jetpack = []
-
 class Background
     def initialize(x)
         @x = x
@@ -104,7 +102,7 @@ end
 class Asteroids
     
     attr_reader :width, :height, :radius
-    attr_accessor :pos
+    attr_accessor :pos, :vel
 
     def initialize(pos)
         @pos = pos
@@ -131,6 +129,8 @@ end
 background = Background.new(0)
 player = Player.new(Vector2D.new(70, 100))
 asteroids = []
+jetpack = []
+trail = []
 
 score = 0
 
@@ -146,6 +146,8 @@ on :key_down do |event|
             score = 0
             player.dead = false
             asteroids.clear
+            jetpack.clear
+            trail.clear
             $started = true
         end
     end
@@ -164,7 +166,7 @@ on :key_held do |event|
 end
 
 # Dear God, I don't know how I managed to write so many IFs.
-# It needs refactoring ASAP.
+# TODO: I need to refactor this ASAP.
 update do
     clear()
 
@@ -185,16 +187,34 @@ update do
     end
     background.show
 
-    player.update(elapsed_time)
-    player.show
+    trail.each do |t|
+        t.update(elapsed_time)
+        if(!t.active?)
+            trail.delete(t)
+        end
+        t.show
+    end
+
     asteroids.each do |asteroid|
         if(asteroid.pos.x < -asteroid.width)
             asteroids.delete(asteroid)
+        end
+        for c in 0...3
+            trail.push(Particle.new(x: asteroid.pos.x + (asteroid.width / 2), y: rand((asteroid.pos.y + (asteroid.height / 2) - 5)..(asteroid.pos.y + (asteroid.height / 2)) + 5),
+                                    vx: 2.5, vy: 0,
+                                    color1: [0.67, 0.84, 0.96, 1.0],
+                                    color2: [0.14, 0.36, 0.53, 1.0],
+                                    size1: 28,
+                                    size2: 2,
+                                    lifetime: 0.5))
         end
         asteroid.update(elapsed_time)
         asteroid.show
         player.collide(asteroid)
     end
+
+    player.update(elapsed_time)
+    player.show
 
     if(!$started && !player.dead)
         Text.new("Press SPACE", x: 50, y: ($width / 2), size: 50, color: "orange")
@@ -219,7 +239,7 @@ update do
                                         lifetime: 0.5,
                                         shape: :circle))
         end
-    
+
         if(player.vel.y < 490.0)
             jetpack.each do |jet|
                 jet.update(elapsed_time)
