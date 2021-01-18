@@ -1,6 +1,9 @@
 Ruby2D
   https://github.com/ruby2d/ruby2d
 
+Rectangle-Circle Collision Algorithm (Jeffrey Thompson)
+  https://www.jeffreythompson.org/collision-detection/circle-rect.php
+
 Space Background Pixel Art (u/astrellon3)
   https://www.reddit.com/r/PixelArt/comments/f1wg26/space_background
 
