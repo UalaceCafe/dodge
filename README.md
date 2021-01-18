@@ -15,6 +15,7 @@ This is also my first game.
 ## Todo
 
 - [ ] Improve physics, animations and UI;
+- [ ] Fix jetpack trail spawn location;
 - [ ] Optimize and refactor code;
 - [ ] Improve FPS;
 - [ ] Add sound;
@@ -55,5 +56,5 @@ ruby dodge.rb
 - Jeffrey Thompson for the [Rectangle-Circle Collision Algorithm](http://www.jeffreythompson.org/collision-detection/circle-rect.php);
 - u/astrellon3 for the [Background Image](https://www.reddit.com/r/PixelArt/comments/f1wg26/space_background);
 - User ID 9664c for the [Jetpack Model](https://pixelartmaker.com/art/742278a96bb85eb);
-- John Nesky for the [Beepbox website](https://www.beepbox.co) where the game music was made;
+- John Nesky for the [Beepbox](https://www.beepbox.co) website where the game music was made;
 - Assets, code and the 'math_2d' and 'ruby2d_extras' libraries were made by me.
