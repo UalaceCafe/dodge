@@ -3,7 +3,7 @@
 A simple game based on Dani's [Making a Game in ONE HOUR](https://www.youtube.com/watch?v=EGBvvlgbJVM) video using the [Ruby2d](http://www.ruby2d.com/) gem. 
 This is also my first game.
 
-![repo_cover](./assets/cover.png=100x200)
+![repo_cover](https://i.imgur.com/cSC4T8w.png=100x200)
 
 ## Objectives
 
