@@ -104,13 +104,13 @@ class Asteroids
     attr_reader :width, :height, :radius
     attr_accessor :pos, :vel
 
-    def initialize(pos)
+    def initialize(pos, width, height)
         @pos = pos
-        @vel = Vector2D.new(rand(-500..-100), 0)
+        @vel = Vector2D.new(rand(-800..-100), 0)
         @angle = rand(0..360)
 
-        @width = 64
-        @height = 64
+        @width = width
+        @height = height
         @radius = 32
     end
 
@@ -122,7 +122,7 @@ class Asteroids
     end
 
     def show
-        @sprite = Image.new('assets/asteroid.png', x: @pos.x, y: @pos.y, width: 64, height: 64, rotate: @angle)
+        @sprite = Image.new('assets/asteroid.png', x: @pos.x, y: @pos.y, width: @width, height: @height, rotate: @angle)
     end
 end
 
@@ -174,7 +174,8 @@ update do
 
     if($started)
         if(asteroids.length <= 2)
-            asteroids.push(Asteroids.new(Vector2D.new($width, rand(-32..($height - 32)))))
+            size = rand(32..64)
+            asteroids.push(Asteroids.new(Vector2D.new($width + 500, rand(-32..($height - 32))), size, size))
         end
     end
 
@@ -204,7 +205,7 @@ update do
                                     vx: 2.5, vy: 0,
                                     color1: [0.67, 0.84, 0.96, 1.0],
                                     color2: [0.14, 0.36, 0.53, 1.0],
-                                    size1: 28,
+                                    size1: Utils2D.map(asteroid.width, 32, 64, 14, 28),
                                     size2: 2,
                                     lifetime: 0.5))
         end
