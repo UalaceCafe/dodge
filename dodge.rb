@@ -35,6 +35,7 @@ end
 
 class Player
 
+    attr_reader :width, :height
     attr_accessor :pos, :vel, :thrust, :dead
 
     def initialize(pos)
@@ -42,11 +43,13 @@ class Player
         @vel = Vector2D.new(0, 0)
         @thrust = 495
 
+        @width = 35
+        @height = 62
         @dead = false
     end
 
     def update(time)
-        if($started && !@dead)
+        if($started)
             @vel.y += $gravity
             @vel.y = Utils2D.constrain(@vel.y, -490.0, 500)
             @pos = @pos.add(@vel.mult(time))
@@ -55,6 +58,17 @@ class Player
             if(@pos.y >= $width + 62)
                 @dead = true
             end
+        end
+    end
+
+    def collide(asteroid)
+        if(@pos.x < asteroid.pos.x + asteroid.width &&
+           @pos.x + @width > asteroid.pos.x &&
+           @pos.y < asteroid.pos.y + asteroid.height &&
+           @pos.y + @height > asteroid.pos.y)
+
+            @dead = true
+
         end
     end
 
@@ -70,8 +84,33 @@ class Player
     end
 end
 
+class Asteroids
+    
+    attr_reader :width, :height
+    attr_accessor :pos
+
+    def initialize(pos)
+        @pos = pos
+        @vel = Vector2D.new(rand(-500..-100), 0)
+
+        @width = 64
+        @height = 64
+    end
+
+    def update(time)
+        if($started)
+            @pos.x += @vel.x * time
+        end
+    end
+
+    def show
+        Image.new('assets/asteroid.png', x: @pos.x, y: @pos.y, width: 64, height: 64)
+    end
+end
+
 background = Background.new(0)
 player = Player.new(Vector2D.new(70, 100))
+asteroids = []
 
 score = 0
 
@@ -86,6 +125,7 @@ on :key_down do |event|
             player.pos.y = 100
             score = 0
             player.dead = false
+            asteroids.clear
             $started = true
         end
     end
@@ -108,6 +148,12 @@ update do
 
     elapsed_time = 1 / Window.fps
 
+    if($started)
+        if(asteroids.length <= 2)
+            asteroids.push(Asteroids.new(Vector2D.new($width, rand(-64..($height - 32)))))
+        end
+    end
+
     if($started && !player.dead)
         score += elapsed_time
     end
@@ -119,6 +165,14 @@ update do
 
     player.update(elapsed_time)
     player.show
+    asteroids.each do |asteroid|
+        if(asteroid.pos.x < -asteroid.width)
+            asteroids.delete(asteroid)
+        end
+        asteroid.update(elapsed_time)
+        asteroid.show
+        player.collide(asteroid)
+    end
 
     if(!$started && !player.dead)
         Text.new("Press SPACE", x: 50, y: ($width / 2), size: 50, color: "orange")
