@@ -16,7 +16,7 @@ This is also my first game.
 
 - [ ] Improve physics, animations and UI;
 - [ ] Optimize and refactor code;
-- [ ] Increase FPS;
+- [ ] Improve FPS;
 - [ ] Add music;
 - [ ] Be more creative ;).
 
