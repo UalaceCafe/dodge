@@ -174,7 +174,7 @@ update do
 
     if($started)
         if(asteroids.length <= 2)
-            asteroids.push(Asteroids.new(Vector2D.new($width, rand(-64..($height - 32)))))
+            asteroids.push(Asteroids.new(Vector2D.new($width, rand(-32..($height - 32)))))
         end
     end
 
