@@ -10,7 +10,7 @@ This is also my first game.
 - Learn the basics of making a game;
 - Create my first game;
 - Understand and write game logic, collision detection and animation;
-- Test my Particle System.
+- Test and use my Particle System.
 
 ## Todo
 
