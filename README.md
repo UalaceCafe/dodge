@@ -45,6 +45,7 @@ ruby dodge.rb
 
 * Use jetpack: space bar
 * Start and Restart: space bar
+* If you get hit by a meteor or fall bellow the screen, you DIE
 
 # Credits
 
