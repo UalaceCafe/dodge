@@ -17,9 +17,9 @@ This is also my first game.
 - [ ] Improve physics, animations and UI;
 - [ ] Fix jetpack trail spawn location;
 - [ ] Optimize and refactor code;
-- [ ] Improve FPS;
+- [x] Improve FPS;
 - [ ] Add sound;
-- [ ] Add music;
+- [x] Add music;
 - [ ] Be more creative ;).
 
 # Install
