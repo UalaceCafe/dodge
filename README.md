@@ -27,6 +27,12 @@ A simple game based on Dani's [Making a Game in ONE HOUR](https://www.youtube.co
 gem install ruby2d
 ```
 
+Then clone the source to your local:
+
+```
+git clone https://github.com/UalaceCafe/dodge
+```
+
 # Play
 
 ```
