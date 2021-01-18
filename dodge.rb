@@ -61,14 +61,31 @@ class Player
         end
     end
 
+    # http://www.jeffreythompson.org/collision-detection/circle-rect.php
     def collide(asteroid)
-        if(@pos.x < asteroid.pos.x + asteroid.width &&
-           @pos.x + @width > asteroid.pos.x &&
-           @pos.y < asteroid.pos.y + asteroid.height &&
-           @pos.y + @height > asteroid.pos.y)
+        cx = asteroid.pos.x + asteroid.radius
+        cy = asteroid.pos.y + (asteroid.height / 2)
 
+        test_x = cx
+        test_y = cy
+
+        if(cx < @pos.x)
+            test_x = @pos.x
+        elsif(cx > @pos.x + @width)
+            test_x = @pos.x + @width
+        end
+        if(cy < @pos.y)
+            test_y = @pos.y
+        elsif(cy > @pos.y + @height)
+            test_y = @pos.y
+        end
+
+        dist_x = cx - test_x
+        dist_y = cy - test_y
+        distance = Math.sqrt((dist_x * dist_x) + (dist_y * dist_y))
+
+        if(distance <= asteroid.radius)
             @dead = true
-
         end
     end
 
@@ -86,25 +103,28 @@ end
 
 class Asteroids
     
-    attr_reader :width, :height
+    attr_reader :width, :height, :radius
     attr_accessor :pos
 
     def initialize(pos)
         @pos = pos
         @vel = Vector2D.new(rand(-500..-100), 0)
+        @angle = rand(0..360)
 
         @width = 64
         @height = 64
+        @radius = 32
     end
 
     def update(time)
         if($started)
+            @angle += @vel.x * time
             @pos.x += @vel.x * time
         end
     end
 
     def show
-        Image.new('assets/asteroid.png', x: @pos.x, y: @pos.y, width: 64, height: 64)
+        @sprite = Image.new('assets/asteroid.png', x: @pos.x, y: @pos.y, width: 64, height: 64, rotate: @angle)
     end
 end
 
@@ -143,6 +163,8 @@ on :key_held do |event|
     end
 end
 
+# Dear God, I don't know how I managed to write so many IFs.
+# It needs refactoring ASAP.
 update do
     clear()
 
