@@ -48,7 +48,7 @@ ruby dodge.rb
 
 # Credits
 
-- [Ruby2D Team](https://github.com/ruby2d/ruby2d) for the Ruby2D gem;
+- Ruby2D Team for the [Ruby2D gem](https://github.com/ruby2d/ruby2d);
 <!-- - [Carlos Vagner](https://github.com/glitchysnitchy) for the game music; -->
-- [u/astrellon3](https://www.reddit.com/r/PixelArt/comments/f1wg26/space_background) for the background space image;
-- [User ID 9664c](https://pixelartmaker.com/art/742278a96bb85eb) for the Jetpack model.
+- u/astrellon3 for the [background space image](https://www.reddit.com/r/PixelArt/comments/f1wg26/space_background);
+- User ID 9664c for the [Jetpack model](https://pixelartmaker.com/art/742278a96bb85eb).
