@@ -132,6 +132,11 @@ asteroids = []
 jetpack = []
 trail = []
 
+song = Music.new("assets/theme.wav")
+song.volume = 50
+song.loop = true
+song.play
+
 score = 0
 
 on :key_down do |event|
