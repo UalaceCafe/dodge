@@ -4,24 +4,29 @@
 # An implemention of various math and vector functions from Processing
 # and P5.js
 #----------------------------------------------------------------------#
-# Just a remainder that, apart form the `set` method, every other
-# method DOES NOT change the values of the vector, but returns a new
-# one.
+# Just a remainder that, apart from the `set` method, every other
+# method DOES NOT change the values of the vector, but rather returns
+# a new one.
 #======================================================================#
 class Vector2D
 
     attr_accessor :x, :y
 
+    # Creates a new vector (x, y)
     def initialize(x, y)
         @x = x
         @y = y
     end
 
-    def set(x, y)
+    # Sets the `x` and `y` components of the vector
+    # Each argument is optional, so you can change a single component
+    # and keep the other one's original value
+    def set(x = self.x, y = self.y)
         self.x = x
         self.y = y
     end
 
+    # Adds `self` to another vector or to a scalar
     def add(other)
         if(other.class == Vector2D)
             return Vector2D.new(self.x + other.x, self.y + other.y)
@@ -29,6 +34,7 @@ class Vector2D
         return Vector2D.new(self.x + other, self.y + other)
     end
 
+    # Subtracts `self` to another vector or to a scalar
     def sub(other)
         if(other.class == Vector2D)
             return Vector2D.new(self.x - other.x, self.y - other.y)
@@ -36,6 +42,7 @@ class Vector2D
         return Vector2D.new(self.x - other, self.y - other)
     end
 
+    # Multiplies `self` by another vector or by a scalar
     def mult(other)
         if(other.class == Vector2D)
             return Vector2D.new(self.x * other.x, self.y * other.y)
@@ -43,6 +50,7 @@ class Vector2D
         return Vector2D.new(self.x * other, self.y * other)
     end
 
+    # Divides `self` by another vector or by a scalar
     def div(other)
         if(other.class == Vector2D)
             return Vector2D.new(self.x / other.x, self.y / other.y)
@@ -50,31 +58,42 @@ class Vector2D
         return Vector2D.new(self.x / other, self.y / other)
     end
 
+    # Calculates the dot product between `self` and `other`, where:
+    # A.B (A dot B) = (Ax * Bx) + (Ay * By)
     def dot(other)
         angle = Math.acos((self.x * other.x + self.y * other.y) / (self.magnitude * other.magnitude))
         return self.magnitude * other.magnitude * Math.cos(angle)
     end
 
+    # Calculates the cross product between `self` and `other`, where:
+    # AxB (A cross B) = (Ax * By) - (Bx * Ay)
+    # However, the cross product is NOT defined in a 2D space, so the operation
+    # simply returns the magnitude of the resulting cross-product Vector in 3D
     def cross(other)
         return (self.x * other.y) - (other.x * self.y)
     end
 
+    # Returns the magnitude squared of `self`
     def squared
         return (self.x ** 2) + (self.y ** 2)
     end
 
+    # Returns the magnitude of `self`
     def magnitude
         return Math.sqrt(self.x ** 2 + self.y ** 2)
     end
 
+    # Returns the Euclidean distance between `self` and `other`
     def distance(other)
         return Math.sqrt((other.x - self.x) ** 2 + (other.y - self.y) ** 2)
     end
 
+    # Returns the ratio (x / y) of `self`
     def ratio
         return self.x.to_f / self.y
     end
 
+    # Limit the magnitude of `self` to `max`
     def limit(max)
         msq = self.squared
         vec = self
@@ -85,61 +104,86 @@ class Vector2D
         return vec
     end
 
+    # Sets the magnitude of `self` to `new_mag`
     def set_magnitude(new_mag)
         mag = self.magnitude
         mag = mag == 0 ? Float::INFINITY : mag
         return Vector2D.new((self.x * new_mag) / mag, (self.y * new_mag) / mag)
     end
 
+    # Normalizes `self` (set the magnitude to 1)
+    # `unit` is an alias for this method
     def normalize
         set_magnitude(1)
     end
 
+    alias :unit :normalize
+
+    # Returns true if the magnitude of `self` is equal to 1, false otherwise
+    # `unit?` is an alias for this method
     def normalized?
         return self.magnitude == 1
     end
 
+    alias :unit? :normalized?
+
+    # Returns the x-heading angle of `self` in radians
+    # The x-heading angle is the angle formed between `self` and the x-axis
     def heading
-        return Math.atan(self.y.to_f / self.x)
+        return Math.atan2(self.y.to_f, self.x)
     end
 
+    # Returns the y-heading angle of `self` in radians
+    # The y-heading angle is the angle formed between `self` and the y-axis
     def y_heading
         return Utils2D::HALF_PI - self.heading
     end
 
+    # Returns a new Vector2D from a given angle `theta` with length `len`
+    # By default, `len` = 1
     def self.from_angle(theta, len = 1)
         return Vector2D.new(len * Math.cos(theta), len * Math.sin(theta))
     end
 
+    # Returns the angle between `self` and `other` in radians
     def angle_between(other)
         return Math.acos((self.x * other.x + self.y * other.y) / (self.magnitude * other.magnitude))
     end
 
+    # Rotates `self` `angle` radians and returns it as a new Vector2D
     def rotate(angle)
         return Vector2D.new(self.x * Math.cos(angle) - self.y * Math.sin(angle), self.x * Math.sin(angle) + self.y * Math.cos(angle))
     end
 
+    # Linear interpolate `self` and `other` with an amount `amt`
     def lerp(other, amt)
         self.add(other.sub(self).mult(amt))
     end
 
+    # Reflects `self` and returns it as a new Vector2D
+    # `other` is the normal of the plane where `self` is reflected
     def reflect(other)
         self.sub(other.mult(other.dot(self)).mult(2))
     end
 
+    # Returns a new Vector2D with random components but magnitude equal to 1
     def self.random
         theta = rand(-Utils2D::TWO_PI..Utils2D::TWO_PI)
         return Vector2D.new(Math.cos(theta), Math.sin(theta))
     end
 
+    # Converts `self` to an array
     def to_a
         return [self.x, self.y]
     end
 
+    # Converts `self` to a string
     def to_s
         return self.to_a.to_s
     end
 
+    # Returns a new Vector2D from an array `arr`
+    # If the array is bigger than 2 elements, only the first 2 will be considered
     def self.to_vector(arr)
         if(arr.class != Array)
             raise ArgumentError, "`arr` must be an Array"
