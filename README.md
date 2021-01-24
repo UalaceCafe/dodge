@@ -9,9 +9,7 @@ The game was made with a Nintendo Entertainment System (NES) vibe in mind, so it
 - 16x16 and 32x32 sprites
 etc.
 
-It's very much playable with this resolution, but you can resize the game window if you need to.
-
-![repo_cover](https://i.imgur.com/oGuKCxe.gif=100x200)
+![repo_cover](https://i.imgur.com/FRcLrX9.gif=100x200)
 
 ## Objectives
 
@@ -23,8 +21,8 @@ It's very much playable with this resolution, but you can resize the game window
 
 ## Todo
 
-- [ ] Improve physics, animations and UI;
-- [ ] Fix jetpack trail spawn location;
+- [x] Improve physics, animations and UI;
+- [x] Fix jetpack trail spawn location;
 - [ ] Optimize and refactor code;
 - [x] Improve FPS;
 - [ ] Add sound;
@@ -62,6 +60,7 @@ ruby dodge.rb
 
 - Ruby2D Team for the [Ruby2D gem](https://github.com/ruby2d/ruby2d);
 <!-- - [Carlos Vagner](https://github.com/glitchysnitchy) for the game music; -->
+- Pixel Sagas for the [Pixel Emulator font](https://www.fontspace.com/pixel-emulator-font-f21507);
 - Jeffrey Thompson for the [Rectangle-Circle Collision Algorithm](http://www.jeffreythompson.org/collision-detection/circle-rect.php);
 - u/astrellon3 for the [Background Image](https://www.reddit.com/r/PixelArt/comments/f1wg26/space_background) (which I edited to look more like a NES sprite);
 - John Nesky for the [Beepbox](https://www.beepbox.co) website where the game music was made;

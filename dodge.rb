@@ -2,7 +2,7 @@ require 'ruby2d'
 require_relative 'lib/math_2d'
 require_relative 'lib/ruby2d_extras'
 
-set(title: "Dodge", width: 256, height: 240, resizable: true)
+set(title: "Dodge", width: 256, height: 240, fps: 30, fullscreen: true)
 
 $width = Window.width
 $height = Window.height
@@ -223,17 +223,17 @@ update do
     player.show
 
     if(!$started && !player.dead)
-        Text.new("Press SPACE", x: 50, y: ($width / 2), size: 25, color: "orange")
+        Text.new("Press SPACE", x: 27, y: ($width / 2), size: 25, font: "assets/PixelEmulator.ttf", color: "orange")
     end
 
     if($started && player.dead)
-        Text.new("Press SPACE to RESTART", x: 20, y: $width / 2, size: 18, color: "orange")
-        Text.new("Your score was #{score.to_i}", x: ($width / 2) - 35, y: ($width / 2) + 20, size: 10, color: "orange")
+        Text.new("Press SPACE to RESTART", x: 14, y: $width / 2, size: 14, font: "assets/PixelEmulator.ttf", color: "orange")
+        Text.new("Your score was #{score.to_i}", x: ($width / 2) - 60, y: ($width / 2) + 20, size: 10, font: "assets/PixelEmulator.ttf", color: "orange")
     end
 
     if($started && !player.dead)
 
-        Text.new("#{score.to_i}", x: ($width / 2) - 10, y: 15, size: 15, color: 'white')
+        Text.new("#{score.to_i}", x: ($width / 2) - 10, y: 15, size: 15, font: "assets/PixelEmulator.ttf", color: 'white')
 
         for c in 0...1
             jetpack.push(Particle.new(x: rand(49..51), y: player.pos.y + 30,
