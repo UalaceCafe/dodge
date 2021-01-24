@@ -8,7 +8,7 @@ $width = Window.width
 $height = Window.height
 $started = false
 $restart = false
-$gravity = 190
+$gravity = 140
 
 class Background
     def initialize(x)
@@ -39,7 +39,7 @@ class Player
     def initialize(pos)
         @pos = pos
         @vel = Vector2D.new(0, 0)
-        @thrust = 200
+        @thrust = 150
 
         @width = 18
         @height = 28
@@ -49,7 +49,7 @@ class Player
     def update(time)
         if($started)
             @vel.y += $gravity
-            @vel.y = Utils2D.constrain(@vel.y, -190, 200)
+            @vel.y = Utils2D.constrain(@vel.y, -140, 150)
             @pos = @pos.add(@vel.mult(time))
             @pos.y = Utils2D.constrain(@pos.y, 0, $width + 32)
 
