@@ -16,7 +16,7 @@ It's very much playable with this resolution, but you can resize the game window
 ## Objectives
 
 - Learn the basics of making a game;
-- Learn the basics of pixel art
+- Learn the basics of pixel art;
 - Create my first game;
 - Understand and write game logic, collision detection and animation;
 - Test and use my Particle System.
