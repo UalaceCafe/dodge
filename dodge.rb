@@ -8,7 +8,7 @@ $width = Window.width
 $height = Window.height
 $started = false
 $restart = false
-$gravity = 290
+$gravity = 190
 
 class Background
     def initialize(x)
@@ -39,7 +39,7 @@ class Player
     def initialize(pos)
         @pos = pos
         @vel = Vector2D.new(0, 0)
-        @thrust = 295
+        @thrust = 200
 
         @width = 18
         @height = 28
@@ -49,7 +49,7 @@ class Player
     def update(time)
         if($started)
             @vel.y += $gravity
-            @vel.y = Utils2D.constrain(@vel.y, -290.0, 300)
+            @vel.y = Utils2D.constrain(@vel.y, -190, 200)
             @pos = @pos.add(@vel.mult(time))
             @pos.y = Utils2D.constrain(@pos.y, 0, $width + 32)
 
@@ -246,7 +246,7 @@ update do
                                         shape: :square))
         end
 
-        if(player.vel.y < 490.0)
+        if(player.vel.y < 300.0)
             jetpack.each do |jet|
                 jet.update(elapsed_time)
                 if (!jet.active?)
