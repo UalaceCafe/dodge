@@ -11,7 +11,7 @@ etc.
 
 It's very much playable with this resolution, but you can resize the game window if you need to.
 
-![repo_cover](https://i.imgur.com/Z7G5xs7.gif=100x200)
+![repo_cover](https://i.imgur.com/oGuKCxe.gif=100x200)
 
 ## Objectives
 
@@ -63,6 +63,6 @@ ruby dodge.rb
 - Ruby2D Team for the [Ruby2D gem](https://github.com/ruby2d/ruby2d);
 <!-- - [Carlos Vagner](https://github.com/glitchysnitchy) for the game music; -->
 - Jeffrey Thompson for the [Rectangle-Circle Collision Algorithm](http://www.jeffreythompson.org/collision-detection/circle-rect.php);
-- u/astrellon3 for the [Background Image](https://www.reddit.com/r/PixelArt/comments/f1wg26/space_background);
+- u/astrellon3 for the [Background Image](https://www.reddit.com/r/PixelArt/comments/f1wg26/space_background) (which I edited to look more like a NES sprite);
 - John Nesky for the [Beepbox](https://www.beepbox.co) website where the game music was made;
 - Assets, code and the 'math_2d' and 'ruby2d_extras' libraries were made by me.
