@@ -9,7 +9,7 @@ The game was made with a Nintendo Entertainment System (NES) vibe in mind, so it
 - 16x16 and 32x32 sprites
 etc.
 
-+<img src="/promo.gif?raw=true" width="200px">
++<img src="/promo.gif?raw=true" width="600px">
 
 ## Objectives
 
