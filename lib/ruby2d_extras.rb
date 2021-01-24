@@ -2,6 +2,119 @@ require 'ruby2d'
 require_relative 'math_2d'
 
 module Ruby2D
+    class Quad
+        include Renderable
+
+        attr_reader :angle
+
+        def rotate(x_pivot, y_pivot, angle)
+            @angle = (Math::PI * angle) / 180
+        
+            x_shifted1 = @x1 - x_pivot
+            y_shifted1 = @y1 - y_pivot
+            x_shifted2 = @x2 - x_pivot
+            y_shifted2 = @y2 - y_pivot
+            x_shifted3 = @x3 - x_pivot
+            y_shifted3 = @y3 - y_pivot
+            x_shifted4 = @x4 - x_pivot
+            y_shifted4 = @y4 - y_pivot
+        
+            @x1 = x_pivot + (x_shifted1 * Math.cos(@angle) - y_shifted1 * Math.sin(@angle))
+            @y1 = y_pivot + (x_shifted1 * Math.sin(@angle) + y_shifted1 * Math.cos(@angle))
+        
+            @x2 = x_pivot + (x_shifted2 * Math.cos(@angle) - y_shifted2 * Math.sin(@angle))
+            @y2 = y_pivot + (x_shifted2 * Math.sin(@angle) + y_shifted2 * Math.cos(@angle))
+        
+            @x3 = x_pivot + (x_shifted3 * Math.cos(@angle) - y_shifted3 * Math.sin(@angle))
+            @y3 = y_pivot + (x_shifted3 * Math.sin(@angle) + y_shifted3 * Math.cos(@angle))
+        
+            @x4 = x_pivot + (x_shifted4 * Math.cos(@angle) - y_shifted4 * Math.sin(@angle))
+            @y4 = y_pivot + (x_shifted4 * Math.sin(@angle) + y_shifted4 * Math.cos(@angle))
+        end
+
+        def angle=(angle)
+            @angle = angle
+            rotate(@x, @y, angle)
+        end
+    end
+
+    class Triangle
+        include Renderable
+
+        attr_reader :angle
+
+        def rotate(x_pivot, y_pivot, angle)
+            @angle = (Math::PI * angle) / 180
+        
+            x_shifted1 = @x1 - x_pivot
+            y_shifted1 = @y1 - y_pivot
+            x_shifted2 = @x2 - x_pivot
+            y_shifted2 = @y2 - y_pivot
+            x_shifted3 = @x3 - x_pivot
+            y_shifted3 = @y3 - y_pivot
+        
+            @x1 = x_pivot + (x_shifted1 * Math.cos(@angle) - y_shifted1 * Math.sin(@angle))
+            @y1 = y_pivot + (x_shifted1 * Math.sin(@angle) + y_shifted1 * Math.cos(@angle))
+        
+            @x2 = x_pivot + (x_shifted2 * Math.cos(@angle) - y_shifted2 * Math.sin(@angle))
+            @y2 = y_pivot + (x_shifted2 * Math.sin(@angle) + y_shifted2 * Math.cos(@angle))
+        
+            @x3 = x_pivot + (x_shifted3 * Math.cos(@angle) - y_shifted3 * Math.sin(@angle))
+            @y3 = y_pivot + (x_shifted3 * Math.sin(@angle) + y_shifted3 * Math.cos(@angle))
+        end
+
+        def angle=(angle)
+            @angle = angle
+            rotate(@x, @y, angle)
+        end
+    end
+
+    class Line
+        include Renderable
+
+        attr_reader :angle
+
+        def rotate(x_pivot, y_pivot, angle)
+            @angle = (Math::PI * angle) / 180
+        
+            x_shifted1 = @x1 - x_pivot
+            y_shifted1 = @y1 - y_pivot
+            x_shifted2 = @x2 - x_pivot
+            y_shifted2 = @y2 - y_pivot
+        
+            @x1 = x_pivot + (x_shifted1 * Math.cos(@angle) - y_shifted1 * Math.sin(@angle))
+            @y1 = y_pivot + (x_shifted1 * Math.sin(@angle) + y_shifted1 * Math.cos(@angle))
+        
+            @x2 = x_pivot + (x_shifted2 * Math.cos(@angle) - y_shifted2 * Math.sin(@angle))
+            @y2 = y_pivot + (x_shifted2 * Math.sin(@angle) + y_shifted2 * Math.cos(@angle))
+        end
+
+        def angle=(angle)
+            @angle = angle
+            rotate(@x, @y, angle)
+        end
+    end
+
+    class Circle
+        include Renderable
+
+        attr_reader :angle
+
+        def rotate(x_pivot, y_pivot, angle)
+            @angle = (Math::PI * angle) / 180
+        
+            x_shifted = @x - x_pivot
+            y_shifted = @y - y_pivot
+        
+            @x = x_pivot + (x_shifted * Math.cos(@angle) - y_shifted * Math.sin(@angle))
+            @y = y_pivot + (x_shifted * Math.sin(@angle) + y_shifted * Math.cos(@angle))
+        end
+
+        def angle=(angle)
+            @angle = angle
+            rotate(@x, @y, angle)
+        end
+    end
 
     # Creates a non-filled circle using the Midpoint Circle Algorithm
     # For reference:
@@ -360,7 +473,7 @@ module Ruby2D
     # iterations (about 5 particles per frame is more than enough)
     class Particle
 
-        attr_accessor :pos, :vel, :color1, :color2, :size1, :size2, :lifetime, :life_remaining, :active
+        attr_accessor :x, :y, :vx, :vy, :color1, :color2, :size1, :size2, :lifetime, :life_remaining, :active
 
         def initialize(opts = {})
             @x = opts[:x] || 0

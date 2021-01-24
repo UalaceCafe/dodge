@@ -2,18 +2,18 @@ require 'ruby2d'
 require_relative 'lib/math_2d'
 require_relative 'lib/ruby2d_extras'
 
-set(title: "Dodge", width: 400, height: 500, fps: 100)
+set(title: "Dodge", width: 256, height: 240, resizable: true)
 
 $width = Window.width
 $height = Window.height
 $started = false
 $restart = false
-$gravity = 490
+$gravity = 290
 
 class Background
     def initialize(x)
         @x = x
-        @vel_x = 80
+        @vel_x = 30
     end
 
     def update(time)
@@ -26,8 +26,8 @@ class Background
     end
 
     def show
-        @image1 = Image.new('assets/bg.png', x: @x, y: 0, width: 640, height: 640)
-        @image2 = Image.new('assets/bg.png', x: @x + @image1.width, y: 0, width: 640, height: 640)
+        @image1 = Image.new('assets/bg.png', x: @x, y: 0, width: 256, height: 256)
+        @image2 = Image.new('assets/bg.png', x: @x + @image1.width, y: 0, width: 256, height: 256)
     end
 end
 
@@ -39,21 +39,21 @@ class Player
     def initialize(pos)
         @pos = pos
         @vel = Vector2D.new(0, 0)
-        @thrust = 495
+        @thrust = 295
 
-        @width = 35
-        @height = 62
+        @width = 18
+        @height = 28
         @dead = false
     end
 
     def update(time)
         if($started)
             @vel.y += $gravity
-            @vel.y = Utils2D.constrain(@vel.y, -490.0, 500)
+            @vel.y = Utils2D.constrain(@vel.y, -290.0, 300)
             @pos = @pos.add(@vel.mult(time))
-            @pos.y = Utils2D.constrain(@pos.y, 0, $width + 124)
+            @pos.y = Utils2D.constrain(@pos.y, 0, $width + 32)
 
-            if(@pos.y >= $width + 62)
+            if(@pos.y >= $width + 28)
                 @dead = true
             end
         end
@@ -61,7 +61,7 @@ class Player
 
     # http://www.jeffreythompson.org/collision-detection/circle-rect.php
     def collide(asteroid)
-        cx = asteroid.pos.x + asteroid.radius
+        cx = asteroid.pos.x + (asteroid.width / 2)
         cy = asteroid.pos.y + (asteroid.height / 2)
 
         test_x = cx
@@ -82,7 +82,7 @@ class Player
         dist_y = cy - test_y
         distance = Math.sqrt((dist_x * dist_x) + (dist_y * dist_y))
 
-        if(distance <= asteroid.radius)
+        if(distance <= (asteroid.width / 2))
             @dead = true
         end
     end
@@ -95,23 +95,22 @@ class Player
         else
             angle = Utils2D.lerp(10, -10, @vel.y)
         end
-        Image.new('assets/ziggy.png', x: @pos.x, y: @pos.y, width: 35, height: 62, rotate: angle)
+        Image.new('assets/ziggy.png', x: @pos.x, y: @pos.y, width: 18, height: 28, rotate: angle)
     end
 end
 
 class Asteroids
     
-    attr_reader :width, :height, :radius
+    attr_reader :width, :height
     attr_accessor :pos, :vel
 
     def initialize(pos, width, height)
         @pos = pos
-        @vel = Vector2D.new(rand(-800..-100), 0)
+        @vel = Vector2D.new(rand(-350..-50), 0)
         @angle = rand(0..360)
 
         @width = width
         @height = height
-        @radius = 32
     end
 
     def update(time)
@@ -127,7 +126,7 @@ class Asteroids
 end
 
 background = Background.new(0)
-player = Player.new(Vector2D.new(70, 100))
+player = Player.new(Vector2D.new(50, 100))
 asteroids = []
 jetpack = []
 trail = []
@@ -179,8 +178,8 @@ update do
 
     if($started)
         if(asteroids.length <= 2)
-            size = rand(32..64)
-            asteroids.push(Asteroids.new(Vector2D.new($width + 500, rand(-32..($height - 32))), size, size))
+            size = rand(16..32)
+            asteroids.push(Asteroids.new(Vector2D.new($width + 100, rand(-8..($height - 16))), size, size))
         end
     end
 
@@ -206,13 +205,14 @@ update do
             asteroids.delete(asteroid)
         end
         for c in 0...3
-            trail.push(Particle.new(x: asteroid.pos.x + (asteroid.width / 2), y: rand((asteroid.pos.y + (asteroid.height / 2) - 5)..(asteroid.pos.y + (asteroid.height / 2)) + 5),
+            trail.push(Particle.new(x: asteroid.pos.x + (asteroid.width / 4), y: rand((asteroid.pos.y + (asteroid.height / 2) - (asteroid.height / 4))..(asteroid.pos.y + (asteroid.height / 2)) + (asteroid.height / 4)),
                                     vx: 2.5, vy: 0,
                                     color1: [0.67, 0.84, 0.96, 1.0],
                                     color2: [0.14, 0.36, 0.53, 1.0],
-                                    size1: Utils2D.map(asteroid.width, 32, 64, 14, 28),
+                                    size1: Utils2D.map(asteroid.width, 16, 32, 6, 12),
                                     size2: 2,
-                                    lifetime: 0.5))
+                                    lifetime: 0.5,
+                                    shape: :square))
         end
         asteroid.update(elapsed_time)
         asteroid.show
@@ -223,27 +223,27 @@ update do
     player.show
 
     if(!$started && !player.dead)
-        Text.new("Press SPACE", x: 50, y: ($width / 2), size: 50, color: "orange")
+        Text.new("Press SPACE", x: 50, y: ($width / 2), size: 25, color: "orange")
     end
 
     if($started && player.dead)
-        Text.new("Press SPACE to RESTART", x: 20, y: ($width / 2) + 30, size: 30, color: "orange")
-        Text.new("Your score was #{score.to_i}", x: ($width / 2) - 60, y: ($width / 2) + 70, size: 15, color: "orange")
+        Text.new("Press SPACE to RESTART", x: 20, y: $width / 2, size: 18, color: "orange")
+        Text.new("Your score was #{score.to_i}", x: ($width / 2) - 35, y: ($width / 2) + 20, size: 10, color: "orange")
     end
 
     if($started && !player.dead)
 
-        Text.new("#{score.to_i}", x: ($width / 2) - 10, y: 30, size: 20, color: 'white')
+        Text.new("#{score.to_i}", x: ($width / 2) - 10, y: 15, size: 15, color: 'white')
 
         for c in 0...1
-            jetpack.push(Particle.new(x: rand(70..72), y: player.pos.y + 53,
+            jetpack.push(Particle.new(x: rand(49..51), y: player.pos.y + 30,
                                         vx: -0.25, vy: rand(0.5..2.5),
                                         color1: [0.52, 0.38, 0.68, 1.0],
                                         color2: [0.77, 0.62, 0.84, 1.0],
                                         size1: rand(2.0..6.0),
                                         size2: rand(2.0),
                                         lifetime: 0.5,
-                                        shape: :circle))
+                                        shape: :square))
         end
 
         if(player.vel.y < 490.0)

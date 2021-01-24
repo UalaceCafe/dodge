@@ -1,13 +1,15 @@
-#======================================================================#
-# >> Based mostly on the P5.js math/vector/etc functions
-#----------------------------------------------------------------------#
-# An implemention of various math and vector functions from Processing
-# and P5.js
-#----------------------------------------------------------------------#
-# Just a remainder that, apart from the `set` method, every other
-# method DOES NOT change the values of the vector, but rather returns
-# a new one.
-#======================================================================#
+#========================================================================#
+# >> Vector2D
+#------------------------------------------------------------------------#
+# - An implemention of various math and vector functions from Processing,
+#   P5.js and Unity 2D;
+#
+# - Yes, I copied most of the description from the original sources. No,
+#   I'm not very creative.
+#------------------------------------------------------------------------#
+# * Just a remainder that MOST methods return a NEW Vector2D, instead of
+#   changing the components of `self`, so be careful.
+#========================================================================#
 class Vector2D
 
     attr_accessor :x, :y
@@ -20,10 +22,41 @@ class Vector2D
 
     # Sets the `x` and `y` components of the vector
     # Each argument is optional, so you can change a single component
-    # and keep the other one's original value
+    # and keep the other one's actual value
     def set(x = self.x, y = self.y)
         self.x = x
         self.y = y
+    end
+    
+    # Shorthand for writing Vector2D.new(0, 0)
+    def self.zero
+        return Vector2D.new(0, 0)
+    end
+
+    # Shorthand for writing Vector2D.new(1, 1)
+    def self.one
+        return Vector2D.new(1, 1)
+    end
+
+    # Shorthand for writing Vector2D.new(0, -1)
+    # NOTE: the y-axis is inverted
+    def self.up
+        return Vector2D.new(0, -1)
+    end
+
+    # Shorthand for writing Vector2D.new(0, 1)
+    def self.down
+        return Vector2D.new(0, 1)
+    end
+
+    # Shorthand for writing Vector2D.new(-1, 0)
+    def self.left
+        return Vector2D.new(-1, 0)
+    end
+
+    # Shorthand for writing Vector2D.new(1, 0)
+    def self.right
+        return Vector2D.new(1, 0)
     end
 
     # Adds `self` to another vector or to a scalar
@@ -61,14 +94,13 @@ class Vector2D
     # Calculates the dot product between `self` and `other`, where:
     # A.B (A dot B) = (Ax * Bx) + (Ay * By)
     def dot(other)
-        angle = Math.acos((self.x * other.x + self.y * other.y) / (self.magnitude * other.magnitude))
-        return self.magnitude * other.magnitude * Math.cos(angle)
+        return (self.x * other.x) + (self.y * other.y)
     end
 
     # Calculates the cross product between `self` and `other`, where:
     # AxB (A cross B) = (Ax * By) - (Bx * Ay)
-    # However, the cross product is NOT defined in a 2D space, so the operation
-    # simply returns the magnitude of the resulting cross-product Vector in 3D
+    # HOWEVER, the cross product is NOT defined in a 2D space, so the operation
+    # simply returns the magnitude of the resulting cross-product Vector
     def cross(other)
         return (self.x * other.y) - (other.x * self.y)
     end
@@ -163,6 +195,7 @@ class Vector2D
     # Reflects `self` and returns it as a new Vector2D
     # `other` is the normal of the plane where `self` is reflected
     def reflect(other)
+        other = other.normalize
         self.sub(other.mult(other.dot(self)).mult(2))
     end
 

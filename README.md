@@ -3,11 +3,20 @@
 A simple game based on Dani's [Making a Game in ONE HOUR](https://www.youtube.com/watch?v=EGBvvlgbJVM) video using the [Ruby2d](http://www.ruby2d.com/) gem. 
 This is also my first game.
 
-![repo_cover](https://i.imgur.com/cSC4T8w.png=100x200)
+The game was made with a Nintendo Entertainment System (NES) vibe in mind, so it uses NES standard resolutions, like 
+
+- 256x240 display resolution
+- 16x16 and 32x32 sprites
+etc.
+
+It's very much playable with this resolution, but you can resize the game window if you need to.
+
+![repo_cover](https://i.imgur.com/vBPXn8u.mp4=100x200)
 
 ## Objectives
 
 - Learn the basics of making a game;
+- Learn the basics of pixel art
 - Create my first game;
 - Understand and write game logic, collision detection and animation;
 - Test and use my Particle System.
@@ -55,6 +64,5 @@ ruby dodge.rb
 <!-- - [Carlos Vagner](https://github.com/glitchysnitchy) for the game music; -->
 - Jeffrey Thompson for the [Rectangle-Circle Collision Algorithm](http://www.jeffreythompson.org/collision-detection/circle-rect.php);
 - u/astrellon3 for the [Background Image](https://www.reddit.com/r/PixelArt/comments/f1wg26/space_background);
-- User ID 9664c for the [Jetpack Model](https://pixelartmaker.com/art/742278a96bb85eb);
 - John Nesky for the [Beepbox](https://www.beepbox.co) website where the game music was made;
 - Assets, code and the 'math_2d' and 'ruby2d_extras' libraries were made by me.
