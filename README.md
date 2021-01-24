@@ -11,7 +11,7 @@ etc.
 
 It's very much playable with this resolution, but you can resize the game window if you need to.
 
-![repo_cover](https://i.imgur.com/vBPXn8u.gif=100x200)
+![repo_cover](https://i.imgur.com/Z7G5xs7.gif=100x200)
 
 ## Objectives
 
